@@ -47,8 +47,8 @@ def create(userId):
 @todolist.route("/tasklist/update/<int:userId>/<int:taskId>", methods=["GET", "POST"])
 @login_required
 def update(userId, taskId):
-    form = TaskUpdateForm()
     currentTask = Task.query.filter_by(id=taskId).first()
+    form = TaskUpdateForm(status=currentTask.status)
     if form.validate_on_submit():
         description = form.description.data
         status = form.status.data
