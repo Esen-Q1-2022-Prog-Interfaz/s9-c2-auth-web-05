@@ -10,7 +10,7 @@
 {% endif %}
 <p>task create</p>
 <br>
-<form action="#" method="post">
+<form action="{{ url_for('todolist.create', userId=userId) }}" method="post">
     {{ form.hidden_tag() }}
     {{ form.description.label }}
     {{ form.description }}
