@@ -41,3 +41,13 @@ def create(userId):
         db.session.commit()
         return redirect(url_for("todolist.tasklist", userId=userId))
     return render_template("todolist/create.html", form=form, user=current_user, userId=userId)
+
+
+@todolist.route("/tasklist/delete/<int:userId>/<int:taskId>")
+@login_required
+def delete(userId, taskId):
+    # que pasos tengo hacer para eliminar el task id
+    currentTask = Task.query.filter_by(id=taskId).first()
+    db.session.delete(currentTask)
+    db.session.commit()
+    return redirect(url_for("todolist.tasklist", userId=userId))
