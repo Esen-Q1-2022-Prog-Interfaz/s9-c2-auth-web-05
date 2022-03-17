@@ -47,7 +47,8 @@ def create(userId):
 @login_required
 def delete(userId, taskId):
     # que pasos tengo hacer para eliminar el task id
-    currentTask = Task.query.filter_by(id=taskId).first()
-    db.session.delete(currentTask)
-    db.session.commit()
+    if current_user.id == userId or "admin" in current_user.rank:
+        currentTask = Task.query.filter_by(id=taskId).first()
+        db.session.delete(currentTask)
+        db.session.commit()
     return redirect(url_for("todolist.tasklist", userId=userId))
