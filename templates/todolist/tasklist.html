@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block title %}tasklist{% endblock %}
+{% block contents %}
+<h1>tasklist</h1>
+<br>
+{% if user %}
+<p>Hello, {{user.username}} rank: {{user.rank}}</p>
+<br>
+<a href="{{ url_for('auth.logout') }}">logout</a>
+{% endif %}
+<p>tasklist of user</p>
+<br>
+<a href="{{ url_for('todolist.create', userId=userId) }}">create a task</a>
+<br>
+{% endblock %}

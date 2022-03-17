@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+{% block title %}task create{% endblock %}
+{% block contents %}
+<h1>task create</h1>
+<br>
+{% if user %}
+<p>Hello, {{user.username}} rank: {{user.rank}}</p>
+<br>
+<a href="{{ url_for('auth.logout') }}">logout</a>
+{% endif %}
+<p>task create</p>
+<br>
+<form action="#" method="post">
+    {{ form.hidden_tag() }}
+    {{ form.description.label }}
+    {{ form.description }}
+    {{ form.submit }}
+</form>
+
+{% endblock %}

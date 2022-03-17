@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% block title %}todolist home{% endblock %}
+{% block contents %}
+<h1>todolist home</h1>
+<br>
+{% if user %}
+<p>Hello, {{user.username}} rank: {{user.rank}}</p>
+<br>
+<a href="{{ url_for('auth.logout') }}">logout</a>
+{% endif %}
+<p>this is my awesome todolist home</p>
+
+{% for userItem in userList %}
+<a href="{{ url_for('todolist.tasklist', userId=userItem.id) }}">{{ userItem.username }}</a><br>
+{% endfor %}
+
+{% endblock %}
