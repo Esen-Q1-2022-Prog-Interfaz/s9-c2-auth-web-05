@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for
 from flask_login import current_user, login_required
 from forms.taskCreateForm import TaskCreateForm
+from forms.taskUpdateForm import TaskUpdateForm
 from utils.db import db
 from models.user import User
 from models.task import Task
@@ -41,6 +42,22 @@ def create(userId):
         db.session.commit()
         return redirect(url_for("todolist.tasklist", userId=userId))
     return render_template("todolist/create.html", form=form, user=current_user, userId=userId)
+
+
+@todolist.route("/tasklist/update/<int:userId>/<int:taskId>", methods=["GET", "POST"])
+@login_required
+def update(userId, taskId):
+    form = TaskUpdateForm()
+    currentTask = Task.query.filter_by(id=taskId).first()
+    if form.validate_on_submit():
+        description = form.description.data
+        status = form.status.data
+        currentTask.description = description
+        currentTask.status = status
+        db.session.add(currentTask)
+        db.session.commit()
+        return redirect(url_for("todolist.tasklist", userId=userId))
+    return render_template("todolist/update.html", form=form, userId=userId, task=currentTask)
 
 
 @todolist.route("/tasklist/delete/<int:userId>/<int:taskId>")

@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block title %}task update{% endblock %}
+{% block contents %}
+<h1>task update</h1>
+<br>
+{% if user %}
+<p>Hello, {{user.username}} rank: {{user.rank}}</p>
+<br>
+<a href="{{ url_for('auth.logout') }}">logout</a>
+{% endif %}
+<p>task update</p>
+<br>
+<form action="{{ url_for('todolist.update', userId=userId, taskId=task.id) }}" method="post">
+    {{ form.hidden_tag() }}
+    {{ form.description.label }}
+    {{ form.description(value=task.description) }}
+    {{ form.status.label }}
+    {{ form.status }}
+    {{ form.submit }}
+</form>
+
+{% endblock %}

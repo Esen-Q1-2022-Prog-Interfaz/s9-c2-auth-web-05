@@ -28,6 +28,7 @@
             <td>{{ task.userId }}</td>
             <td>{{ task.description }}</td>
             <td>{{ task.status }}</td>
+            <td><a href="{{ url_for('todolist.update', userId=userId, taskId=task.id) }}">update</a></td>
             <td><a href="{{ url_for('todolist.delete', userId=userId, taskId=task.id) }}">delete</a></td>
         </tr>
         {% endfor %}
